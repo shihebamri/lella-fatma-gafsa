@@ -15,14 +15,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link rel="icon" href="/logo.png" />
-      <style>{`
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/logo.png" />
+        <style>{`
   html {
     font-family: ${GeistSans.style.fontFamily};
     --font-sans: ${GeistSans.variable};
     --font-mono: ${GeistMono.variable};
   }
-      `}</style>
+        `}</style>
       </head>
       <body>{children}</body>
     </html>
