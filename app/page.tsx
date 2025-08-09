@@ -140,55 +140,45 @@ export default function HomePage() {
       {/* Hero Section with Slideshow */}
       <section
         id="accueil"
-        className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-screen bg-cover bg-center section-padding"
+        className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-screen flex items-center justify-center section-padding bg-black"
       >
-        {/* Preload the first hero image for fast above-the-fold rendering */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/hero1.png"
-            alt="Hero background"
-            fill
-            priority
-            sizes="100vw"
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
-          />
-        </div>
-        {/* Overlay other hero images for slideshow effect, fallback to backgroundImage for transitions */}
-        {["/hero2.png", "/hero3.png", "/hero4.png", "/hero5.png"].map((img, idx) => (
+        {/* Hero Slideshow Images */}
+        {["/hero1.png", "/hero2.png", "/hero3.png", "/hero4.png", "/hero5.png"].map((img, idx) => (
           <div
             key={img}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              heroIndex === idx + 1 ? "opacity-100 z-0" : "opacity-0 z-0"
-            }`}
+            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${heroIndex === idx ? "opacity-100 z-0" : "opacity-0 z-0"}`}
             style={{
               backgroundImage: `url('${img}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+              willChange: "opacity"
             }}
-            aria-hidden={heroIndex !== idx + 1}
+            aria-hidden={heroIndex !== idx}
           />
         ))}
-        <div className="absolute inset-0 bg-charcoal/50 z-10"></div>
-        <div className="relative z-20 flex items-center justify-center h-full text-center text-white px-4 sm:px-6">
+        {/* Overlay for readability */}
+        <div className="absolute inset-0 bg-charcoal/60 md:bg-charcoal/50 z-10 transition-colors"></div>
+        {/* Hero Content */}
+        <div className="relative z-20 flex flex-col items-center justify-center w-full h-full text-center text-white px-4 sm:px-6 py-16 sm:py-24">
           <div className="w-full max-w-2xl sm:max-w-3xl md:max-w-4xl fade-in-up">
-            <p className="text-base sm:text-lg mb-3 sm:mb-4 tracking-wider text-tunisian-gold">BIENVENUE CHEZ</p>
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight">Lella Fatma Gafsa</h1>
-            <p className="text-base sm:text-xl md:text-2xl mb-4 sm:mb-8 text-ivory-sand">
+            <p className="text-base sm:text-lg mb-3 sm:mb-4 tracking-wider text-tunisian-gold drop-shadow">BIENVENUE CHEZ</p>
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight drop-shadow-lg">Lella Fatma Gafsa</h1>
+            <p className="text-base sm:text-xl md:text-2xl mb-4 sm:mb-8 text-ivory-sand drop-shadow">
               Goûtez à l'authenticité de la cuisine traditionnelle tunisienne
             </p>
-            <p className="text-sm sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto text-ivory-sand/90">
+            <p className="text-sm sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto text-ivory-sand/90 drop-shadow">
               Un lieu où les recettes ancestrales prennent vie dans une ambiance chaleureuse, au cœur de Gafsa.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full">
+            <div className="flex flex-col xs:flex-row gap-3 sm:gap-4 justify-center w-full max-w-md mx-auto">
               <Button 
-                className="bg-desert-clay hover:bg-desert-clay/90 px-6 sm:px-8 py-3 text-base sm:text-lg w-full sm:w-auto"
+                className="bg-desert-clay hover:bg-desert-clay/90 px-6 sm:px-8 py-3 text-base sm:text-lg w-full xs:w-auto"
                 onClick={() => scrollToSection('menu')}
               >
                 Voir le Menu
               </Button>
               <Button 
                 variant="outline"
-                className="border-ivory-sand text-charcoal hover:bg-ivory-sand hover:text-charcoal px-6 sm:px-8 py-3 text-base sm:text-lg w-full sm:w-auto"
+                className="border-ivory-sand text-charcoal hover:bg-ivory-sand hover:text-charcoal px-6 sm:px-8 py-3 text-base sm:text-lg w-full xs:w-auto"
                 onClick={() => scrollToSection('contact')}
               >
                 Réserver une Table
