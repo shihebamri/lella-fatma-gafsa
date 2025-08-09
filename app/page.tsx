@@ -142,19 +142,30 @@ export default function HomePage() {
         id="accueil"
         className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-screen bg-cover bg-center section-padding"
       >
-        {/* Slideshow Images */}
-        {["/hero1.png", "/hero2.png", "/hero3.png", "/hero4.png", "/hero5.png"].map((img, idx) => (
+        {/* Preload the first hero image for fast above-the-fold rendering */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/hero1.png"
+            alt="Hero background"
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
+        </div>
+        {/* Overlay other hero images for slideshow effect, fallback to backgroundImage for transitions */}
+        {["/hero2.png", "/hero3.png", "/hero4.png", "/hero5.png"].map((img, idx) => (
           <div
             key={img}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              heroIndex === idx ? "opacity-100 z-0" : "opacity-0 z-0"
+              heroIndex === idx + 1 ? "opacity-100 z-0" : "opacity-0 z-0"
             }`}
             style={{
               backgroundImage: `url('${img}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
-            aria-hidden={heroIndex !== idx}
+            aria-hidden={heroIndex !== idx + 1}
           />
         ))}
         <div className="absolute inset-0 bg-charcoal/50 z-10"></div>
